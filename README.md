@@ -1,3 +1,3 @@
 ## Dashboard Template.
 
-Dashboard Template developed using SASS and compiled ussing GULP.
+Dashboard Template developed using SASS and compiled using GULP.
