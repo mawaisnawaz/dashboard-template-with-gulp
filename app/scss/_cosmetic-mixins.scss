@@ -1,0 +1,873 @@
+/* -------------------------------------------------------------
+  Sass CSS3 Mixins! The Cross-Browser CSS3 Sass Library
+  By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+
+  List of CSS3 Sass Mixins File to be @imported and @included as you need
+
+  The purpose of this library is to facilitate the use of CSS3 on different browsers avoiding HARD TO READ and NEVER
+  ENDING css files
+
+  note: All CSS3 Properties are being supported by Safari 5
+  more info: http://www.findmebyip.com/litmus/#css3-properties
+
+------------------------------------------------------------- */
+
+
+////
+/// @author Matthieu Aussaguel
+/// @group sass-css3-mixins
+////
+
+
+/// Adds a browser prefix to the property
+/// @param {*} $property Property
+/// @param {*} $value Value
+
+@mixin css3-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+   -khtml-#{$property}: #{$value};
+     -moz-#{$property}: #{$value};
+      -ms-#{$property}: #{$value};
+       -o-#{$property}: #{$value};
+          #{$property}: #{$value};
+}
+
+
+/// Background Gradient
+/// @param {Color} $startColor [#3C3C3C] - Start Color
+/// @param {Color} $endColor [#999999] - End Color
+
+@mixin background-gradient($startColor: #3C3C3C, $endColor: #999999) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+    background-image:    -moz-linear-gradient(top, $startColor, $endColor);
+    background-image:     -ms-linear-gradient(top, $startColor, $endColor);
+    background-image:      -o-linear-gradient(top, $startColor, $endColor);
+    background-image:         linear-gradient(top, $startColor, $endColor);
+    filter:            progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
+}
+
+
+/// Background Horizontal
+/// @param {Color} $startColor [#3C3C3C] - Start Color
+/// @param {Color} $endColor [#999999] - End Color
+
+@mixin background-horizontal($startColor: #3C3C3C, $endColor: #999999) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, right top, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(left, $startColor, $endColor);
+    background-image:    -moz-linear-gradient(left, $startColor, $endColor);
+    background-image:     -ms-linear-gradient(left, $startColor, $endColor);
+    background-image:      -o-linear-gradient(left, $startColor, $endColor);
+    background-image:         linear-gradient(left, $startColor, $endColor);
+    filter:            progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}', gradientType='1');
+}
+
+
+/// Background Radial
+/// @param {Color} $startColor [#3C3C3C] - Start Color
+/// @param {Percentage} $startPos [0%] - Start position
+/// @param {Color} $endColor [#999999] - End Color
+/// @param {Percentage} $endPos [100%] - End position
+
+@mixin background-radial($startColor: #FFFFFF, $startPos: 0%, $endColor: #000000, $endPos:100%) {
+    background: -moz-radial-gradient(center, ellipse cover, $startColor $startPos, $endColor $endPos);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop($startPos,$startColor), color-stop($endPos,$endColor));
+    background: -webkit-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: -o-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: -ms-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: radial-gradient(ellipse at center, $startColor $startPos,$endColor $endPos);
+}
+
+
+/// Background Size
+/// @param {Size} $width [100%] - Width
+/// @param {Size} $width [$width] - Height
+/// @require {mixin} css3-prefix
+
+@mixin background-size($width: 100%, $height: $width) {
+  @if type-of($width) == 'number' and $height != null {
+    @include css3-prefix('background-size', $width $height);
+  } @else {
+    @include css3-prefix('background-size', $width);
+  }
+}
+
+
+/// Background Color Opacity
+/// @param {Color} $color [100%] - Color
+/// @param {Double} $opacity [0.85] - Opacity
+
+@mixin background-opacity($color: #000, $opacity: 0.85) {
+  background: $color;
+  background: rgba($color, $opacity);
+}
+
+
+/// Border Radius
+/// @param {Size} $radius [5px] - Radius
+/// @require {mixin} css3-prefix
+
+@mixin border-radius($radius: 5px) {
+    @include css3-prefix('border-radius', $radius);
+}
+
+
+
+/// Border Radius
+/// @param {Size} $radius [50%] - Radius
+/// @require {mixin} css3-prefix
+
+@mixin border-radius-round($radius-round: 50%) {
+    @include css3-prefix('border-radius', $radius-round);
+}
+
+
+
+/// Border Radius Separate
+/// @param {Size} $topLeftRadius [5px] - Top Left
+/// @param {Size} $topRightRadius [5px] - Top Right
+/// @param {Size} $bottomLeftRadius [5px] - Bottom Left
+/// @param {Size} $bottomRightRadius [5px] - Bottom Right
+
+@mixin border-radius-separate($topLeftRadius: 5px, $topRightRadius: 5px, $bottomLeftRadius: 5px, $bottomRightRadius: 5px) {
+  -webkit-border-top-left-radius:     $topLeftRadius;
+  -webkit-border-top-right-radius:    $topRightRadius;
+  -webkit-border-bottom-right-radius: $bottomRightRadius;
+  -webkit-border-bottom-left-radius:  $bottomLeftRadius;
+
+  -moz-border-radius-topleft:     $topLeftRadius;
+  -moz-border-radius-topright:    $topRightRadius;
+  -moz-border-radius-bottomright: $bottomRightRadius;
+  -moz-border-radius-bottomleft:  $bottomLeftRadius;
+
+  border-top-left-radius:     $topLeftRadius;
+  border-top-right-radius:    $topRightRadius;
+  border-bottom-right-radius: $bottomRightRadius;
+  border-bottom-left-radius:  $bottomLeftRadius;
+}
+
+
+/// Box
+/// @param {*} $orient [horizontal] - Orientation
+/// @param {*} $pack [center] - Pack
+/// @param {*} $align [center] - Align
+/// @require {mixin} css3-prefix
+
+@mixin box($orient: horizontal, $pack: center, $align: center) {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+
+  @include css3-prefix('box-orient', $orient);
+  @include css3-prefix('box-pack', $pack);
+  @include css3-prefix('box-align', $align);
+}
+
+
+/// Box RGBA
+/// @param {Integer} $r [60] - Red
+/// @param {Integer} $g [3] - Green
+/// @param {Integer} $b [12] - Blue
+/// @param {Double} $opacity [0.23] - Opacity
+/// @param {Color} $color [#3C3C3C] - Color
+
+@mixin box-rgba($r: 60, $g: 3, $b: 12, $opacity: 0.23, $color: #3C3C3C) {
+  background-color: transparent;
+  background-color: rgba($r, $g, $b, $opacity);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$color}',endColorstr='#{$color}');
+            zoom:   1;
+}
+ 
+
+/// Box Shadow
+/// @param {Size} $x [2px] - X
+/// @param {Size} $y [2px] - Y
+/// @param {Size} $blur [5px] - Blur
+/// @param {Color} $color [rgba(0,0,0,.4)] - Color
+/// @param {Boolean} $inset - Inset
+
+@mixin box-shadow($top: 3px, $left: 3px, $blur: 4px, $colour: #444, $inset:"") {
+  -webkit-box-shadow: #{$inset} $top $left $blur $colour;
+  -moz-box-shadow:  #{$inset} $top $left $blur $colour;
+  box-shadow: #{$inset} $top $left $blur $colour;
+}
+
+
+
+
+/// Box Sizing
+/// @param {*} $type [border-box] - Type
+/// @require {mixin} css3-prefix
+
+@mixin box-sizing($type: border-box) {
+  @include css3-prefix('box-sizing', $type);
+}
+
+
+/// Columns
+/// @param {Integer} $count [3] - Count
+/// @param {Integer} $gap [10] - Gap
+/// @require {mixin} css3-prefix
+
+@mixin columns($count: 3, $gap: 10) {
+  @include css3-prefix('column-count', $count);
+  @include css3-prefix('column-gap', $gap);
+}
+
+
+/// Double Borders
+/// @param {Color} $colorOne [#3C3C3C] - Color One
+/// @param {Color} $colorTwo [#999999] - Color Two
+/// @param {Size} $radius [0] - Radius
+/// @require {mixin} css3-prefix
+/// @require {mixin} border-radius
+
+@mixin double-borders($colorOne: #3C3C3C, $colorTwo: #999999, $radius: 0) {
+  border: 1px solid $colorOne;
+
+  @include css3-prefix('box-shadow', 0 0 0 1px $colorTwo);
+
+  @include border-radius( $radius );
+}
+
+
+/// Flex
+/// @param {Integer} $value [1] - Value
+/// @require {mixin} css3-prefix
+
+@mixin flex($value: 1) {
+  @include css3-prefix('box-flex', $value);
+}
+
+
+/// Flip
+/// @param {Double} $scaleX [-1] - ScaleX
+/// @require {mixin} css3-prefix
+
+@mixin flip($scaleX: -1) {
+  @include css3-prefix('transform', scaleX($scaleX));
+  filter:            FlipH;
+  -ms-filter:        "FlipH";
+}
+
+
+/// Font Face
+/// @param {Font} $fontFamily [myFont] - Font Family
+/// @param {String} $eotFileSrc ['myFont.eot'] - Eot File Source
+/// @param {String} $woffFileSrc ['myFont.woff'] - Woff File Source
+/// @param {String} $ttfFileSrc ['myFont.ttf'] - Ttf File Source
+/// @param {String} $svgFileSrc ['myFont.svg'] - Svg File Source
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+  $src: null;
+
+  $extmods: (
+    eot: "?",
+    svg: "#" + str-replace($name, " ", "_")
+  );
+
+  $formats: (
+    otf: "opentype",
+    ttf: "truetype"
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+
+/// Opacity
+/// @param {Double} $opacity [0.5] - Opacity
+/// @require {mixin} css3-prefix
+
+@mixin opacity($opacity: 0.5) {
+    $opacityMultiplied: ($opacity * 100);
+
+    filter:         alpha(opacity=$opacityMultiplied);
+    -ms-filter:     "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + $opacityMultiplied + ")";
+    @include css3-prefix('opacity', $opacity);
+}
+
+
+/// Outline Radius
+/// @param {Size} $radius [5px] - Radius
+/// @require {mixin} css3-prefix
+
+@mixin outline-radius($radius: 5px) {
+  @include css3-prefix('outline-radius', $radius);
+}
+
+
+/// Resize
+/// @param {*} $directoin [both] - Direction
+/// @require {mixin} css3-prefix
+
+@mixin resize($direction: both) {
+  @include css3-prefix('resize', $direction);
+}
+
+
+/// Rotate
+///
+/// CSS Matrix Rotation Calculator http://www.boogdesign.com/examples/transforms/matrix-calculator.html
+/// @param {Double} $deg [0] - Degree
+/// @param {Double} $m11 [0] - M11
+/// @param {Double} $m12 [0] - M12
+/// @param {Double} $m21 [0] - M21
+/// @param {Double} $m22 [0] - M22
+/// @require {mixin} css3-prefix
+
+@mixin rotate($deg: 0, $m11: 0, $m12: 0, $m21: 0, $m22: 0) {
+  @include css3-prefix('transform', rotate($deg + deg));
+  filter: progid:DXImageTransform.Microsoft.Matrix(
+       M11=#{$m11}, M12=#{$m12}, M21=#{$m21}, M22=#{$m22}, sizingMethod='auto expand');
+    zoom: 1;
+}
+
+
+/// Text Shadow
+/// @param {Size} $x [2px] - X
+/// @param {Size} $y [2px] - Y
+/// @param {Size} $blur [2px] - Blur
+/// @param {Color} $color [rgba(0,0,0,.4)] - Color
+
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4)) {
+    text-shadow: $x $y $blur $color;
+}
+
+
+/// Transform
+/// @param {List} $params - Params
+/// @require {mixin} css3-prefix
+
+@mixin transform($params) {
+  @include css3-prefix('transform', $params);
+}
+
+
+/// Transform-Origin
+/// @param {List} $params - Params
+/// @require {mixin} css3-prefix
+
+@mixin transform-origin($params) {
+  @include css3-prefix('transform-origin', $params);
+}
+
+
+// Transform-Style
+/// @param {List} $params - Params
+/// @require {mixin} css3-prefix
+
+@mixin transform-style($style: preserve-3d) {
+  @include css3-prefix('transform-style', $style);
+}
+
+/// Transition
+/// @param {List} $properties - Properties
+/// @require {mixin} css3-prefix
+
+@mixin transition($properties...) {
+
+  @if length($properties) >= 1 {
+    @include css3-prefix('transition', $properties);
+  }
+
+  @else {
+    @include css3-prefix('transition',  "all 0.2s ease-in-out 0s");
+  }
+}
+
+
+/// Triple Borders
+/// @param {Color} $colorOne [#3C3C3C] - Color One
+/// @param {Color} $colorTwo [#999999] - Color Two
+/// @param {Color} $colorThree [#000000] - Color Three
+/// @param {Size} $radius [0] - Radius
+/// @require {mixin} border-radius
+/// @require {mixin} css3-prefix
+
+@mixin triple-borders($colorOne: #3C3C3C, $colorTwo: #999999, $colorThree: #000000, $radius: 0) {
+    border: 1px solid $colorOne;
+
+    @include border-radius($radius);
+
+    @include css3-prefix('box-shadow', "0 0 0 1px #{$colorTwo}, 0 0 0 2px #{$colorThree}");
+}
+
+
+/// Keyframes
+/// @param {*} $animation-name - Animation name
+/// @content [Animation css]
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+/// Animation
+/// @param {*} $str - name duration timing-function delay iteration-count direction fill-mode play-state ([http://www.w3schools.com/cssref/css3_pr_animation.asp](http://www.w3schools.com/cssref/css3_pr_animation.asp))
+/// @require {mixin} css3-prefix
+
+@mixin animation($str) {
+  @include css3-prefix('animation', $str);
+}
+
+
+@mixin prefix($property, $value, $prefixes: (), $content:null) {
+  @each $prefix in $prefixes {
+    #{'-' + $prefix + '-' + $property}: $value;
+  }
+
+  // Output standard non-prefixed declaration
+  #{$property}: $value;
+}
+
+// Animations
+@mixin animation($animation) {
+    @include prefix(animation, $animation, webkit o);
+}
+@mixin animation-name($name) {
+    @include prefix(animation-name, $name, webkit);
+}
+@mixin animation-duration($duration) {
+    @include prefix(animation-duration, $duration, webkit);
+}
+@mixin animation-timing-function($timing-function) {
+    @include prefix(animation-timing-function, $timing-function, webkit);
+}
+@mixin animation-delay($delay) {
+    @include prefix(animation-delay, $delay, webkit);
+}
+@mixin animation-iteration-count($iteration-count) {
+    @include prefix(animation-iteration-count, $iteration-count, webkit);
+}
+@mixin animation-direction($direction) {
+    @include prefix(animation-direction, $direction, webkit);
+}
+@mixin animation-fill-mode($fill-mode) {
+    @include prefix(animation-fill-mode, $fill-mode, webkit);
+}
+
+// Backface visibility
+// Prevent browsers from flickering when using CSS 3D transforms.
+// Default value is `visible`, but can be changed to `hidden`
+
+@mixin backface-visibility($visibility){
+    @include prefix(backface-visibility, $visibility, webkit moz);
+}
+
+// Drop shadows
+//
+// Note: Deprecated `.box-shadow()` as of v3.1.0 since all of Bootstrap's
+// supported browsers that have box shadow capabilities now support it.
+
+@mixin box-shadow($shadow) {
+    @include prefix(box-shadow, $shadow, webkit); // iOS <4.3 & Android <4.1
+}
+
+// Box sizing
+@mixin box-sizing($boxmodel) {
+    @include prefix(box-sizing, $boxmodel, webkit moz);
+}
+
+// CSS3 Content Columns
+@mixin content-columns($column-count, $column-gap: $grid-gutter-width) {
+    @include prefix(column-count, $column-count, webkit moz);
+    @include prefix(column-gap, $column-gap, webkit moz);
+}
+
+// Optional hyphenation
+@mixin hyphens($mode: auto) {
+    word-wrap: break-word;
+    @include prefix(hyphens, $mode, webkit moz ms o);
+}
+
+// Placeholder text
+@mixin placeholder($color: $input-color-placeholder) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  &:-ms-input-placeholder { color: $color; } // Internet Explorer 10+
+  &::-webkit-input-placeholder  { color: $color; } // Safari and Chrome
+}
+
+// Transformations
+@mixin scale($ratio) {
+    @include prefix(transform, $ratio, webkit ms o);
+}
+@mixin scaleXY($ratioX, $ratioY) {
+    @include prefix(transform, scale($ratioX, $ratioY), webkit ms o);
+}
+@mixin scaleX($ratio) {
+    @include prefix(transform, scaleX($ratio), webkit ms o);
+}
+@mixin scaleY($ratio) {
+    @include prefix(transform, scaleY($ratio), webkit moz o);
+}
+@mixin skew($x, $y) {
+    @include prefix(transform, skewX($x) skewY($y), webkit ms o);
+  // See https://github.com/twbs/bootstrap/issues/4885; IE9+
+}
+@mixin translate($x, $y) {
+    @include prefix(transform, translate($x, $y), webkit ms o);
+}
+@mixin translate3d($x, $y, $z, $content:null) {
+    @include prefix(transform, translate3d($x, $y, $z), webkit, $content);
+}
+@mixin rotate($degrees) {
+    @include prefix(transform, rotate($degrees), webkit ms o);
+}
+@mixin rotateX($degrees) {
+    @include prefix(transform, rotateX($degrees), webkit ms o);
+}
+@mixin rotateY($degrees) {
+    @include prefix(transform, rotateY($degrees), webkit ms o);
+}
+@mixin perspective($perspective) {
+    @include prefix(perspective, $perspective, webkit moz);
+}
+@mixin perspective-origin($perspective) {
+    @include prefix(perspective-origin, $perspective, webkit moz);
+}
+@mixin transform-origin($origin) {
+    @include prefix(transform-origin, $origin, webkit moz ms);
+}
+
+// Transitions
+
+@mixin transition($transition) {
+    @include prefix(transition, $transition, webkit o);
+}
+@mixin transition-property($transition-property) {
+    @include prefix(transition-property, $transition-property, webkit);
+}
+@mixin transition-delay($transition-delay) {
+    @include prefix(transition-delay, $transition-delay, webkit);
+}
+@mixin transition-duration($transition-duration) {
+    @include prefix(transition-duration, $transition-duration, webkit);
+}
+@mixin transition-timing-function($timing-function) {
+    @include prefix(transition-timing-function, $timing-function, webkit);
+}
+@mixin transition-transform($transition) {
+  -webkit-transition: -webkit-transform $transition;
+     -moz-transition: -moz-transform $transition;
+       -o-transition: -o-transform $transition;
+          transition: transform $transition;
+}
+
+// User select
+// For selecting text on the page
+
+@mixin user-select($select) {
+    @include prefix(user-select, $select, webkit moz ms);
+}
+
+
+@mixin font-face($family, $name, $weight: 300, $style: null){
+    @font-face{
+        font-family: $family;
+        src:url('./fonts/#{$family}/#{$name}.eot');
+        src:url('./fonts/#{$family}/#{$name}.eot?#iefix') format('embedded-opentype'),
+        url('./fonts/#{$family}/#{$name}.woff') format('woff'),
+        url('./fonts/#{$family}/#{$name}.ttf') format('truetype'),
+        url('./fonts/#{$family}/#{$name}.svg#icon') format('svg');
+        font-weight: $weight;
+        font-style: $style;
+    }
+}
+
+/*
+ * Background Repeat + Position
+ */
+
+@mixin bg-option($repeat: no-repeat, $position: center) {
+    background-repeat: $repeat;
+    background-position: $position;
+}
+
+/*
+ * CSS Animations based on animate.css
+ */
+
+@mixin animated($name, $duration) {
+    -webkit-animation-name: $name;
+    animation-name: $name;
+    -webkit-animation-duration: $duration;
+    animation-duration: $duration;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+/*
+ * CSS Transform - Scale and Rotate
+ */
+@mixin scale-rotate($scale, $rotate) {
+    -webkit-transform: scale($scale) rotate($rotate);
+    -ms-transform: scale($scale) rotate($rotate);
+    -o-transform: scale($scale) rotate($rotate);
+    transform: scale($scale) rotate($rotate);
+}
+
+/*
+ * User Select
+ */
+@mixin user-select ($val) {
+    -webkit-touch-callout:  $val;
+    -webkit-user-select:    $val;
+    -khtml-user-select:     $val;
+    -moz-user-select:       $val;
+    -ms-user-select:        $val;
+    user-select:            $val;
+}
+
+/*
+ * Background Image Cover
+ */
+@mixin bg-cover($image) {
+    background-image: url($image);
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin bg-cover-inline() {
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+}
+
+/*
+ * Tab Focus
+ */
+@mixin tab-focus() {
+    outline: none !important;
+}
+
+/*
+ * Pop-in Hover effects
+ */
+@mixin hover-pop($background: rgba(0,0,0,0.5), $radius: 0, $duration: 250ms, $zindex: 0) {
+    @media (min-width: $screen-sm-min) {
+        position: relative;
+
+        &:before {
+            left: 0;
+            top: 0;
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            @include scale3d(0,0,0);
+            @include transition(all);
+            @include transition-duration($duration);
+            @include backface-visibility(hidden);
+            background-color: $background;
+            z-index: $zindex;
+            border-radius: $radius;
+            @include opacity(0);
+        }
+
+        &:hover:before,
+        &.open:before {
+            @include scale3d(1,1,1);
+            @include opacity(1);
+        }
+    }
+}
+
+/*
+ *  Override Bootstrap Button Mixin
+ */
+@mixin button-variant($color, $background, $border) {
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    .open > .dropdown-toggle & {
+        color: $color;
+        background-color: $background;
+        border-color: transparent;
+
+        &:hover,
+        &:focus,
+        &.focus {
+            color: $color;
+            background-color: $background;
+            border-color: transparent
+        }
+    }
+    &:active,
+    &.active,
+    .open > .dropdown-toggle & {
+        background-image: none;
+    }
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        &,
+        &:hover,
+        &:focus,
+        &.focus,
+        &:active {
+            background-color: $background;
+            border-color: $border;
+        }
+    }
+
+    .badge {
+        color: $background;
+        background-color: $color;
+    }
+}
+
+/*
+ * Scale 3d
+ */
+
+ @mixin scale3d($x, $y, $z) {
+
+//     @process: ~`(function(e){return e=e||"1, 1, 1"})((function(){var e="@{arguments}";return e=e.replace(/^\[|\]$/g,"")})())`;
+    -webkit-transform: scale3d($x, $y, $z);
+    -moz-transform: scale3d($x, $y, $z);
+    -ms-transform: scale3d($x, $y, $z);
+    -o-transform: scale3d($x, $y, $z);
+    transform: scale3d($x, $y, $z);
+}
+
+// List options
+
+// Unstyled keeps list items block level, just removes default browser padding and list-style
+@mixin list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+// Inline turns list items into inline-block
+@mixin list-inline {
+  @include list-unstyled();
+  margin-left: -5px;
+
+  > li {
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+// box shadow
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+//Margin Mixins
+//--------------
+
+//Margin/20px Adjusted
+@mixin content-marginMedium($marginMedium :20px){
+margin:$marginMedium;
+}
+
+//Margin/10px Adjusted
+@mixin content-marginSmall($marginSmall :10px){
+margin:$marginSmall;
+}
+
+//Margin/5px Adjusted
+@mixin content-marginEx-small($marginEx-small :5px){
+margin:$marginEx-small;
+}
+
+//Padding Mixins
+//--------------
+
+//Padding Extra Small/5px Adjusted
+@mixin content-paddingEx-small($paddingEx-small :5px){
+padding:$paddingEx-small;
+}
+
+//Padding Medium/10px Adjusted
+@mixin content-paddingSmall($paddingSedium :10px){
+padding:$paddingSmall;
+}
+//Padding/20px Adjusted
+@mixin content-paddingMedium($paddingMedium :20px){
+padding:$paddingMedium;
+}
+
+//Border Radius
+@mixin border-radius($radius : 10px) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+
+@mixin flex-box($direction,$justify,$align){
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: $direction;
+    flex-direction: $direction;
+    -webkit-justify-content: $justify;
+    justify-content: $justify;
+    -webkit-align-items: $align;
+    align-items: $align;
+}
+
+@mixin link-hover(){
+    text-decoration: none;
+    cursor: pointer;
+}

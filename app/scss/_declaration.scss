@@ -1,0 +1,146 @@
+// Google Fonts
+// Family -- Source Sans Pro
+@include font-face("Roboto", '../fonts/Roboto-Regular', bold, italic);
+
+// Variables
+//---------------------------------------------------------------------------------------------------------------------------
+
+//font-famil
+$text-family: 'Roboto', sans-serif;
+
+
+/*
+ * Font Icon Family
+ */
+$font-icon-md: 'Material-Design-Iconic-Font';
+
+/*
+ * Grid System
+ */
+$container-tablet:                      100%;
+$container-desktop:                     100%;
+
+//===================================================
+// Black Theme
+//===================================================
+
+// background
+$base-color: #ebf0f4; 
+
+//nav-color
+$white-nav: #ffffff;
+
+// font-color
+$writing-color: #4a5054; 
+$secondary-wc: #7a858d;
+
+//dashboard-boxes
+$card-bg: #171d2b;
+
+//When Avatar doesn't has bg
+$avatar-bg: #2b3247;
+
+//Link Color
+$link-color: #65a6e8;
+
+$blueMainColor : #171d2b;
+$lightBlueColor : #2b93d0;
+$tableHeaderBk : #f2f3f4;
+$blueBorderColor : #222838;
+$iconColor : #afb4bd;
+$formButton : #1F7EC8;
+$greenColor : #7ebc51;
+$redColor: #f53168;
+$grayColor : #bcc1ca;
+$darkGreen : #0F977C;
+$darkRed : #C13F42;
+$breadCrumbColor : #313851;
+$button-raised-color: #fff !default;
+
+$dropdown-bg-color: #f2f3f4 !default;
+$dropdown-text-color : #333 !default;
+$dropdown-hover-bg-color: #fff !default;
+$dropdown-color: #333 !default;
+$select-disabled-color: rgba(0,0,0,0.6) !default;
+
+$footerBorder: #9aa0aa;
+$shadowColor : rgba(160,160,160,0.75) !default;
+
+$login-background: #fff;
+
+$notification-color: #ea3c3c;
+
+
+// Mixin
+
+@mixin show-heading(){
+  margin-bottom: 20px;
+	text-align: center;
+		p {
+			font-size: 14px;
+			}
+			h2 {
+				font-size:30px;
+				font-weight: 400;
+				padding-bottom:10px;
+			}
+				 p, 
+				 h2 
+				 { 
+				 	color:$writing-color
+				 }
+}
+@mixin boxes-container(){
+margin:0 auto;
+
+  			ul{
+  	list-style:none;
+  	a{
+  		text-decoration: none;
+  	}
+  	li{
+  		margin:0 20px;
+  		background : $card-bg;
+  		width: 40%;
+  		display: block;
+  		float: left;
+  		color: $writing-color;
+  		min-height: 180px;
+
+  		@include content-paddingMedium;
+  		@include content-marginMedium;
+  		@include center;
+  		&:hover{ 
+  			background: lighten($card-bg, 10);
+  			
+  		}
+	}
+			}
+
+}
+
+//text-Align Center, Content-Center
+@mixin center {
+	text-align:center;
+}
+
+//text-Align Center, Content-Center
+@mixin relative{
+
+	position: relative;
+}
+
+@mixin bold{
+    
+    font-weight: 600;
+
+}
+
+
+
+
+
+
+
+
+
